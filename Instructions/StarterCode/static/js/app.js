@@ -10,7 +10,7 @@ function getPlot(id) {
         
         console.log(samples);
 
-    var samplesvalues = samples.samples_values.slice(0,10). reverse();
+    var samplesvalues = samples.sample_values.slice(0,10).reverse();
     
     var OTU_top =(samples.otu_ids.slice(0,10)).reverse();
     
@@ -39,15 +39,15 @@ function getPlot(id) {
         l: 100,
         r: 100,
         t: 100,
-        b: 40
+        b: 30
       }
     };
 
-    plotly.newpolt('bar', bardata, barlayout);
+    Plotly.newPolt('bar', bardata, barlayout);
 
     var bubbletrace ={
       x: samples.otu_ids,
-      y: samples.samples_values,
+      y: samples.sample_values,
       mode: 'markers',
       marker:{
         size: samples.sample_values,
@@ -65,7 +65,7 @@ function getPlot(id) {
     var bubbledata = [bubbletrace];
 
 
-    plotly.newpolt("bubble", bubbledata, bubblelayout);
+    Plotly.newPolt("bubble", bubbledata, bubblelayout);
 
     var g_data =[ {
       domain: { x: [0, 1], y: [0, 1] },
@@ -87,8 +87,8 @@ function getPlot(id) {
     ];
 
     var guagelayout ={
-      width: 600,
-      height:500,
+      width: 700,
+      height:600,
       margin: { t: 20, b: 40, l:100, r:100 }               
     };
     Plotly.newPlot("gauge", g_data, guagelayout);
@@ -109,9 +109,10 @@ function getInfo(id) {
 
       demographicInfo.html("");
 
-      Object.entries(data).forEach(([key, value]) => {
-        demographicInfo.append("h5").text(`${key}:${value}`);
+      Object.entries(result).forEach((key) => {
+            demographicInfo.append("h6").text(`${key}:${value}`);  
         });
+
       });
 
     }  
@@ -126,7 +127,7 @@ function init() {
 
     var dropdown = d3.select("#selDataset");
 
-    d3.json("Data/samples.json").then((data)=> {
+    d3.json("data/samples.json").then((data)=> {
       console.log(data)
 
 
